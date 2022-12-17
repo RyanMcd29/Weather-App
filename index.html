@@ -15,31 +15,45 @@
     <!-- Title -->
     <nav class = "navbar-brand navbar-dark bg-dark">
         <div class = "container-fluid">
-            <span class="navbar-brand mb-0 h1">Weather Dashboard</span>
+            <h1 class="navbar-brand mb-0 h1">Weather Dashboard</h1>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <section>
+    <section class="d-flex p-3">
         <!-- Search and city list -->
-        <form class="col-4">
+        <form class="col-sm-12 col-md-4 p-3">
             <!-- Searchbox -->
-            <div role = "search">
+            <div role = "search" class = "border-bottom border-primary">
                 <h2>Search for a City:</h2>
                 <input class="form-control" type="search" placeholder="Search for a city" aria aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="col-12 btn btn-primary my-3" type="submit">Search</button>
             </div>
 
             <!-- List of cities -->
             <ul id="city-list">
-
+                
             </ul>
         </form>
 
         <!-- Forecast -->
-        <section id="forecast" class="col-8">
+        <section id="forecast" class="col-sm-12 col-md-8 p-3">
             <!-- Current Conditions -->
+            <article id="current">
+                <h1>City Name <span id="date"></span></h1>
+                <ul>
+                    <li class="temperature"></li>
+                    <li class="wind"></li>
+                    <li class="hudmidity"></li>
+                </ul>
+            </article>
             <!-- Five Day Condtions -->
+            <h2>5-Day Forecast</h2>
+            <div>
+                <article class = "col-sm-12 col-md-4 col-lg-2.4">
+
+                </article>
+            </div>
         </section>
 
     <script src= "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
