@@ -1,11 +1,11 @@
 var searchBox = $('#search-box');
 var cityInput = $('#city-input')
 var cityLst = $('#city-list');
-console.log(searchBox)
+
 // Load local storage
 
-function getGeoCoordinate(city, cityLon, cityLat) {
-    var requestURL = 'http://api.openweathermap.org/geo/1.0/direct?q='+city+'&limit=5&appid=e1a4381a327810c6af4c7a917596228b';
+function getGeoCoordinate(cityObj) {
+    var requestURL = 'http://api.openweathermap.org/geo/1.0/direct?q='+cityObj[0]+'&limit=5&appid=e1a4381a327810c6af4c7a917596228b';
     console.log(requestURL);
     fetch(requestURL)
     .then(function (response) {
@@ -14,26 +14,42 @@ function getGeoCoordinate(city, cityLon, cityLat) {
         .then(function(data){
             console.log(data)
             if (data[0].lon == undefined) {
-                window.alert('City is invalid')
+                console.log("invalid city")
             } else {
-                cityLon = data[0].lon;
-                cityLat = data[0].lat;
+                cityObj.cityLon = data[0].lon;
+                cityObj.cityLat = data[0].lat;
+                console.log(cityObj)
+                getWeatherData(cityObj);
             }
         })
-
 }
+
+function getWeatherData(cityObj) {
+ var requestURL = 'http://api.openweathermap.org/data/2.5/forecast?lat='+cityObj.cityLat+'&lon='+cityObj.cityLon+'&appid=e1a4381a327810c6af4c7a917596228b';
+ fetch(requestURL)
+ .then(function (response) {
+     return response.json();
+   })
+     .then(function(data){
+         console.log(data);
+         
+        })
+}
+    
 
 
 // Add city searched for to list
 var handleInputCity = function (event){
     event.preventDefault();
-    var city = cityInput.val(); 
+    var cityObj = [
+        cityName = cityInput.val(),
+    ] 
 
-    var cityLon = 0
-    var cityLat =0
-    getGeoCoordinate(city);
+    console.log(cityObj)
 
-    console.log(city+cityLon+cityLat)
+    getGeoCoordinate(cityObj);
+    // getWeatherData(cityLon, cityLat)
+
   
     // var cityEl = $('<li>');
     // cityEl.attr('id', city);
