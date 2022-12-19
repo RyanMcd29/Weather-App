@@ -1,11 +1,17 @@
+
+// Searchbox Variables
 var searchBox = $('#search-box');
 var cityInput = $('#city-input')
 var cityLst = $('#city-list');
 
+// Weather Display Variables
+var crntDay = $('#current')
+var fiveDay = $('#five-day')
+
 // Load local storage
 
 function getGeoCoordinate(cityObj) {
-    var requestURL = 'http://api.openweathermap.org/geo/1.0/direct?q='+cityObj[0]+'&limit=5&appid=e1a4381a327810c6af4c7a917596228b';
+    var requestURL = 'http://api.openweathermap.org/geo/1.0/direct?q='+cityObj[0]+'&limit=1&appid=e1a4381a327810c6af4c7a917596228b';
     console.log(requestURL);
     fetch(requestURL)
     .then(function (response) {
@@ -20,19 +26,28 @@ function getGeoCoordinate(cityObj) {
                 cityObj.cityLat = data[0].lat;
                 console.log(cityObj)
                 getWeatherData(cityObj);
+                // Save cityobj to city list
             }
         })
 }
 
 function getWeatherData(cityObj) {
- var requestURL = 'http://api.openweathermap.org/data/2.5/forecast?lat='+cityObj.cityLat+'&lon='+cityObj.cityLon+'&appid=e1a4381a327810c6af4c7a917596228b';
+ var requestURL = 'http://api.openweathermap.org/data/2.5/forecast?lat='+cityObj.cityLat+'&lon='+cityObj.cityLon+'&appid=e1a4381a327810c6af4c7a917596228b&units=metric&cnt=1';
  fetch(requestURL)
  .then(function (response) {
      return response.json();
    })
      .then(function(data){
          console.log(data);
-         
+         // Set weather data for current day
+         crntDay.children('h1').text(data.city.name)
+         crntDay.children().children().children('.temperature').text(data.list[0].main.temp + ' degrees')
+         crntDay.children().children().children('.wind').text(data.list[0].wind.speed + ' kmh')
+         crntDay.children().children().children('.humidity').text(data.list[0].main.humidity + '%')
+
+
+
+         // Set weather data for next 5 days
         })
 }
     
