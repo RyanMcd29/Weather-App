@@ -41,16 +41,18 @@
         </form>
 
         <!-- Forecast -->
-        <section id="forecast" class="col-sm-12 col-md-8 p-3">
+        <section id="forecast" class="col-sm-12 col-md-8 p-3 ">
             <!-- Current Conditions -->
-            <article id="current">
+            <article class="text-bg-primary" id="current">
                 <h1>City Name <span id="date"></span></h1>
-                
-                <ul>
-                    <li>Temperature: <span class="temperature"></span></li>
-                    <li>Wind Speed: <span class="wind"></span></li>
-                    <li>Humidity: <span class="humidity"></span></li>
-                </ul>
+                <div class="row">
+                    <img class = "img-thumbail col-3" id="current-image">
+                    <ul class = "list-group p-3 col-9">
+                        <li class="list-group-item">Temperature: <span class="temperature"></span></li>
+                        <li class="list-group-item">Wind Speed: <span class="wind"></span></li>
+                        <li class="list-group-item">Humidity: <span class="humidity"></span></li>
+                    </ul>
+                </div>
             </article>
             <!-- Five Day Condtions -->
             <h2>5-Day Forecast</h2>

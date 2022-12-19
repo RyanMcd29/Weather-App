@@ -2,3 +2,10 @@
     background-color: lightblue;
     height: vh;
 }
+
+#current-image {
+    padding:0px;
+    height: 200px;
+    width: 200px;
+    border: none;
+}

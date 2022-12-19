@@ -5,6 +5,7 @@ var cityInput = $('#city-input')
 var cityLst = $('#city-list');
 
 // Weather Display Variables
+// var crntImg = ('#current-image')
 var crntDay = $('#current')
 var fiveDay = $('#five-day')
 
@@ -32,6 +33,8 @@ function getGeoCoordinate(cityObj) {
 }
 
 function getWeatherData(cityObj) {
+
+// Set weather data for current day
  var requestURL = 'http://api.openweathermap.org/data/2.5/forecast?lat='+cityObj.cityLat+'&lon='+cityObj.cityLon+'&appid=e1a4381a327810c6af4c7a917596228b&units=metric&cnt=1';
  fetch(requestURL)
  .then(function (response) {
@@ -39,16 +42,18 @@ function getWeatherData(cityObj) {
    })
      .then(function(data){
          console.log(data);
-         // Set weather data for current day
+       
          crntDay.children('h1').text(data.city.name)
-         crntDay.children().children().children('.temperature').text(data.list[0].main.temp + ' degrees')
-         crntDay.children().children().children('.wind').text(data.list[0].wind.speed + ' kmh')
-         crntDay.children().children().children('.humidity').text(data.list[0].main.humidity + '%')
-
-
-
-         // Set weather data for next 5 days
+         $('#current-image').attr('src', 'http://openweathermap.org/img/wn/'+data.list[0].weather[0].icon+'@2x.png')
+         crntDay.children().children().children().children('.temperature').text(data.list[0].main.temp + ' degrees')
+         crntDay.children().children().children().children('.wind').text(data.list[0].wind.speed + ' kmh')
+         crntDay.children().children().children().children('.humidity').text(data.list[0].main.humidity + '%')
         })
+
+
+// Set weather data for next 5 days
+
+    
 }
     
 
