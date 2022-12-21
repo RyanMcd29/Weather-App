@@ -1,4 +1,4 @@
-
+var cityList = [];
 // Searchbox Variables
 var searchBox = $('#search-box');
 var cityInput = $('#city-input')
@@ -9,24 +9,53 @@ var cityLst = $('#city-list');
 var crntDay = $('#current')
 var fiveDay = $('#five-day')
 
-// Load local storage
+// Save City to local storage
+function saveCity(cityObj) {
+    // var cityList = JSON.parse(localStorage.getItem(storedCity));
+    
+    
+
+    console.log(cityList)
+    if (cityList.length < 7) {
+        cityList.unshift(cityObj)
+    } else {
+        cityList.pop()
+        cityList.unshift(cityObj)
+
+    }
+
+    console.log(cityList)
+
+    localStorage.setItem(savedCityArray, JSON.stringify(cityList));
+
+    renderCityList()
+
+
+    
+
+}
+
+
 
 function getGeoCoordinate(cityObj) {
     var requestURL = 'http://api.openweathermap.org/geo/1.0/direct?q='+cityObj[0]+'&limit=1&appid=e1a4381a327810c6af4c7a917596228b';
     console.log(requestURL);
     fetch(requestURL)
     .then(function (response) {
+        // console.log(response)
         return response.json();
+        
       })
         .then(function(data){
             console.log(data)
-            if (data[0].lon == undefined) {
+            if (data.length == 0) {
                 console.log("invalid city")
             } else {
                 cityObj.cityLon = data[0].lon;
                 cityObj.cityLat = data[0].lat;
                 console.log(cityObj)
                 getWeatherData(cityObj);
+                saveCity(cityObj);
                 // Save cityobj to city list
             }
         })
@@ -42,30 +71,29 @@ function currentDayWeather(data){
 }
 
 function fiveDayWeather(data) {
-for (i = 1; i < 6; i++) {
+    fiveDay.empty()
+
+    for (i = 1; i < 6; i++) {
     // change i to 24 hour intervals
     var interval = i*4;
-    var fiveDayCard = $('<div>')
-    var dateTitle = $('<h3>')
-    var fiveImg = $('<img>')
-    var fiveCondtions = $('<ul>')
-    var fiveTemp = $('<li>')
-    var fiveWind = $('<li>')
-    var fiveHum = $('<li>')
+    var fiveDayCard = $('<div>');
+    var dateTitle = $('<h3>');
+    var fiveImg = $('<img>');
+    var fiveCondtions = $('<ul>');
+    var fiveTemp = $('<li>');
+    var fiveWind = $('<li>');
+    var fiveHum = $('<li>');
     
     fiveCondtions.append(fiveTemp, fiveWind, fiveHum)
     fiveDayCard.append(dateTitle, fiveImg, fiveCondtions)
     fiveDay.append(fiveDayCard)
 
-    console.log(data.list[i])
+    // console.log(data.list[i])
 
     fiveImg.attr('src', 'http://openweathermap.org/img/wn/'+data.list[interval].weather[0].icon+'@2x.png')
     fiveTemp.text(data.list[interval].main.temp + ' degrees')
     fiveWind.text(data.list[interval].wind.speed + ' kmh')
     fiveHum.text(data.list[interval].main.humidity + '%')
-    
-    console.log(fiveDay)
-    
 }
 
 
