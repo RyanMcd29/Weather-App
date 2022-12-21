@@ -32,13 +32,15 @@ function saveCity(cityObj) {
     localStorage.setItem('savedCityArray', JSON.stringify(cityList));
 
     renderCityList()
-
-
-    
-
 }
 
+// function retrieveCityObj(event) {
+//     var cityName = event.target.text()
+//     console.log(cityName)
+// }
+
 function renderCityList() {
+    cityLst.empty()
     var loadedCities = JSON.parse(localStorage.getItem('savedCityArray'));
     console.log(loadedCities)
     for (let i = 0; i < loadedCities.length; i++) {
@@ -146,7 +148,8 @@ function getWeatherData(cityObj) {
 // Add city searched for to list
 var handleInputCity = function (event){
     event.preventDefault();
-    var cityObj.cityName = cityInput.val(),
+    var cityObj = [
+        cityName = cityInput.val(),
     ] 
 
     console.log(cityObj)
@@ -165,7 +168,16 @@ var handleInputCity = function (event){
 }
 
 searchBox.on('submit', handleInputCity)
-cityLst.on('click', )
+$('#city-list').on('click', function(event){
+        var cityObj = [
+            cityName = event.target.textContent,
+        ] 
+    
+        console.log(cityObj)
+    
+        getGeoCoordinate(cityObj);
+    })
+
 // Assign time of city
 
 // Load weather API
