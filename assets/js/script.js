@@ -1,4 +1,4 @@
-var cityList = [];
+var cityList = JSON.parse(localStorage.getItem('savedCityArray'));
 // Searchbox Variables
 var searchBox = $('#search-box');
 var cityInput = $('#city-input')
@@ -11,8 +11,11 @@ var fiveDay = $('#five-day')
 
 // Save City to local storage
 function saveCity(cityObj) {
-    // var cityList = JSON.parse(localStorage.getItem(storedCity));
-    
+    cityList = JSON.parse(localStorage.getItem('savedCityArray'));
+    console.log(cityList)
+    if (cityList === null) {
+        cityList = []
+    }
     
 
     console.log(cityList)
@@ -26,7 +29,7 @@ function saveCity(cityObj) {
 
     console.log(cityList)
 
-    localStorage.setItem(savedCityArray, JSON.stringify(cityList));
+    localStorage.setItem('savedCityArray', JSON.stringify(cityList));
 
     renderCityList()
 
@@ -35,7 +38,15 @@ function saveCity(cityObj) {
 
 }
 
-
+function renderCityList() {
+    var loadedCities = JSON.parse(localStorage.getItem('savedCityArray'));
+    console.log(loadedCities)
+    for (let i = 0; i < loadedCities.length; i++) {
+        var cityEl = $('<li>')
+        cityEl.text(loadedCities[i])
+        cityLst.append(cityEl)
+    }
+}
 
 function getGeoCoordinate(cityObj) {
     var requestURL = 'http://api.openweathermap.org/geo/1.0/direct?q='+cityObj[0]+'&limit=1&appid=e1a4381a327810c6af4c7a917596228b';
@@ -135,8 +146,7 @@ function getWeatherData(cityObj) {
 // Add city searched for to list
 var handleInputCity = function (event){
     event.preventDefault();
-    var cityObj = [
-        cityName = cityInput.val(),
+    var cityObj.cityName = cityInput.val(),
     ] 
 
     console.log(cityObj)
@@ -155,6 +165,7 @@ var handleInputCity = function (event){
 }
 
 searchBox.on('submit', handleInputCity)
+cityLst.on('click', )
 // Assign time of city
 
 // Load weather API
