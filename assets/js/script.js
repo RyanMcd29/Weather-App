@@ -62,7 +62,7 @@ function showAlert() {
 }
 
 function getGeoCoordinate(cityObj) {
-    var requestURL = 'http://api.openweathermap.org/geo/1.0/direct?q='+cityObj[0]+'&limit=1&appid=e1a4381a327810c6af4c7a917596228b';
+    var requestURL = 'https://api.openweathermap.org/geo/1.0/direct?q='+cityObj[0]+'&limit=1&appid=e1a4381a327810c6af4c7a917596228b';
     console.log(requestURL);
     fetch(requestURL)
     .then(function (response) {
@@ -86,7 +86,7 @@ function getGeoCoordinate(cityObj) {
 function writeCurrentDay(data,chosen){
     console.log(chosen)
     crntDay.children('h1').text(data.city.name + ' ('+ dayjs().format('DD-MM') + ')')
-         $('#current-image').attr('src', 'http://openweathermap.org/img/wn/'+data.list[chosen].weather[0].icon+'@2x.png')
+         $('#current-image').attr('src', 'https://openweathermap.org/img/wn/'+data.list[chosen].weather[0].icon+'@2x.png')
          crntDay.children().children().children().children('.temperature').text(Math.round(data.list[chosen].main.temp) + ' °C')
          crntDay.children().children().children().children('.wind').text(Math.round(data.list[chosen].wind.speed) + ' km/h')
          crntDay.children().children().children().children('.humidity').text(data.list[chosen].main.humidity + '%')
@@ -158,7 +158,7 @@ function fiveDayWeather(data) {
     console.log(interval)
     console.log(data.list[interval])
     dateTitle.text(dayjs.unix(unixTime).format('DD-MM'))
-    fiveImg.attr('src', 'http://openweathermap.org/img/wn/'+data.list[interval].weather[0].icon+'@2x.png')
+    fiveImg.attr('src', 'https://openweathermap.org/img/wn/'+data.list[interval].weather[0].icon+'@2x.png')
     fiveTemp.text(Math.round(data.list[interval].main.temp) + ' °C')
     fiveWind.text(Math.round(data.list[interval].wind.speed) + ' km/h')
     fiveHum.text(data.list[interval].main.humidity + '%')
@@ -169,7 +169,7 @@ function fiveDayWeather(data) {
 function getWeatherData(cityObj) {
 
 // Set weather data for current day
- var requestURL = 'http://api.openweathermap.org/data/2.5/forecast?lat='+cityObj.cityLat+'&lon='+cityObj.cityLon+'&appid=e1a4381a327810c6af4c7a917596228b&units=metric';
+ var requestURL = 'https://api.openweathermap.org/data/2.5/forecast?lat='+cityObj.cityLat+'&lon='+cityObj.cityLon+'&appid=e1a4381a327810c6af4c7a917596228b&units=metric';
  fetch(requestURL)
  .then(function (response) {
      return response.json();
@@ -183,7 +183,7 @@ function getWeatherData(cityObj) {
 
         })
 
-// var requestURLFiveDay = 'http://api.openweathermap.org/data/2.5/forecast/daily?lat='+cityObj.cityLat+'&lon='+cityObj.cityLon+'&appid=e1a4381a327810c6af4c7a917596228b'
+// var requestURLFiveDay = 'https://api.openweathermap.org/data/2.5/forecast/daily?lat='+cityObj.cityLat+'&lon='+cityObj.cityLon+'&appid=e1a4381a327810c6af4c7a917596228b'
 // fetch(requestURLFiveDay)
 //         .then(function (response) {
 //             return response.json();
